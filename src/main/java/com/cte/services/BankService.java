@@ -8,4 +8,8 @@ public class BankService {
     public UserModel getUser(String cardID) {
         return null;
     }
+
+    public String loginRequest(String cardNumber, String userName, String PIN) {
+        return null;
+    }
 }

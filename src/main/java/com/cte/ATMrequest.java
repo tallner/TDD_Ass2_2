@@ -1,20 +1,33 @@
 package com.cte;
 
+import com.cte.models.CardModel;
+
 public class ATMrequest {
-    private String cardID;
+    private CardModel card;
+    private String ATMpinInput;
     private String withDrawalAmount;
-    private String cardPIN;
 
-    public ATMrequest(String _cardID){
-        cardID = _cardID;
+    public ATMrequest(CardModel _card){
+        card = _card;
+    }
+    public ATMrequest(CardModel _card, String _ATMpinInput){
+        card = _card;
+        ATMpinInput = _ATMpinInput;
     }
 
-    public String getCardID() {
-        return cardID;
+    public String getATMpinInput() {
+        return ATMpinInput;
+    }
+    public void setATMpinInput(String ATMpinInput) {
+        this.ATMpinInput = ATMpinInput;
     }
 
-    public void setCardPIN(String cardPIN) {
-        this.cardPIN = cardPIN;
+    public CardModel getCard() {
+        return card;
+    }
+
+    public void setCard(CardModel card) {
+        this.card = card;
     }
 
     public void setWithDrawalAmount(String withDrawalAmount) {
