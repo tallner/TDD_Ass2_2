@@ -5,8 +5,10 @@ import com.cte.models.CardModel;
 public class ATMrequest {
     private CardModel card;
     private String ATMpinInput;
-    private String withDrawalAmount;
+    private int withDrawalAmount;
     private int addToBalanceAmount;
+
+
 
     public ATMrequest(CardModel _card){
         card = _card;
@@ -17,11 +19,15 @@ public class ATMrequest {
         ATMpinInput = _ATMpinInput;
     }
 
-    public ATMrequest(CardModel _card, String _ATMpinInput, int _addToBalanceAmount){
+    public ATMrequest(CardModel _card, String _ATMpinInput, int _addToBalanceAmount, int _withDrawalAmount){
         card = _card;
         ATMpinInput = _ATMpinInput;
         addToBalanceAmount = _addToBalanceAmount;
+        withDrawalAmount = _withDrawalAmount;
     }
+
+
+
 
     public void setAddToBalanceAmount(int _addToBalanceAmount) {
         addToBalanceAmount = _addToBalanceAmount;
@@ -46,11 +52,11 @@ public class ATMrequest {
         this.card = card;
     }
 
-    public void setWithDrawalAmount(String withDrawalAmount) {
+    public void setWithDrawalAmount(int withDrawalAmount) {
         this.withDrawalAmount = withDrawalAmount;
     }
 
-    public String getWithDrawalAmount() {
+    public int getWithDrawalAmount() {
         return withDrawalAmount;
     }
 }

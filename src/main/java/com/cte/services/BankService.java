@@ -30,4 +30,8 @@ public class BankService {
     public void addToBalance(Integer addBalance) {
 
     }
+
+    public void withdrawFromBalance(Integer withDrawAmount) {
+
+    }
 }

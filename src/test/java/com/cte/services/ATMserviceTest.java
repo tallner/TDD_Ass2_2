@@ -21,7 +21,7 @@ class ATMserviceTest {
 
     private BankService bankService;
     private ATMservice myATMservice;
-    private ArgumentCaptor<Integer> addToBalanceArgumentCaptor;
+    private ArgumentCaptor<Integer> addToBalanceArgumentCaptor,withdrawBalanceArgumentCaptor;
 
     @BeforeEach
     public void setUp() {
@@ -29,6 +29,7 @@ class ATMserviceTest {
         myATMservice = new ATMservice(bankService);
 
         addToBalanceArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+        withdrawBalanceArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
     }
 
     private static List<Arguments> testUsers(){
@@ -138,7 +139,7 @@ class ATMserviceTest {
     }
 
     @Test
-    public void checkIfYouGetBalanceWhenCardIsLoggedIn(){
+    public void getBalanceWhenCardIsLoggedIn(){
         CardModel myCard = new CardModel("1515","15151515","Tallner");
         myCard.setLoginStatus(true);
         ATMrequest _ATMrequest = new ATMrequest(myCard,"1515");
@@ -155,7 +156,7 @@ class ATMserviceTest {
     public void addMoneyToAccountAndVerifyMethodIsRun(){
         CardModel myCard = new CardModel("1515","15151515","Tallner");
         int amountToAddToBalance = 500;
-        ATMrequest _ATMrequest = new ATMrequest(myCard,"1515",amountToAddToBalance);
+        ATMrequest _ATMrequest = new ATMrequest(myCard,"1515",amountToAddToBalance,0);
 
         myATMservice.addToBalance(_ATMrequest);
 
@@ -164,5 +165,20 @@ class ATMserviceTest {
         assertEquals(amountToAddToBalance,addToBalanceArgumentCaptor.getValue());
     }
 
+    @Test
+    public void withdrawMoneyFromAccountAndVerifyMethodIsRun(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        myCard.setLoginStatus(true);
+
+        int amountToWithdrawFromBalance = 500;
+        ATMrequest _ATMrequest = new ATMrequest(myCard,"1515",0,amountToWithdrawFromBalance);
+
+        when(bankService.getBalance("15151515")).thenReturn(3000);
+        myATMservice.withdrawFromBalance(_ATMrequest);
+
+        verify(bankService,times(1)).withdrawFromBalance(withdrawBalanceArgumentCaptor.capture());
+
+        assertEquals(amountToWithdrawFromBalance,withdrawBalanceArgumentCaptor.getValue());
+    }
 
 }
