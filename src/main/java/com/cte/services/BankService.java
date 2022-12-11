@@ -19,11 +19,11 @@ public class BankService {
     public void setNrLoginAttempts(int nrLoginAttempts) {
     }
 
-    public boolean getCardBlockStatus(String s) {
+    public boolean getCardBlockStatus(String cardID) {
         return false;
     }
 
-    public int getBalance(String s) {
+    public int getBalance(String cardID) {
         return 0;
     }
 
@@ -33,5 +33,9 @@ public class BankService {
 
     public void withdrawFromBalance(Integer withDrawAmount) {
 
+    }
+
+    public static String bankName(String cardID){
+        return null;
     }
 }

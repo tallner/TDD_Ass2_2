@@ -66,4 +66,8 @@ public class ATMservice {
     public void quit(ATMrequest _ATMrequest) {
         _ATMrequest.getCard().setLoginStatus(false);
     }
+
+    public String getBankName(ATMrequest _ATMrequest) {
+        return BankService.bankName(_ATMrequest.getCard().getCardID());
+    }
 }

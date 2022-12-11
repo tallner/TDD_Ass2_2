@@ -4,11 +4,13 @@ import com.cte.ATMrequest;
 import com.cte.models.CardModel;
 import com.cte.models.UserModel;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
+import org.mockito.MockedStatic;
 
 
 import java.util.Arrays;
@@ -207,6 +209,22 @@ class ATMserviceTest {
         myATMservice.quit(_ATMrequest);
 
         assertEquals(expectedLoginStatusAfterMethodIsRun,myCard.getLoginStatus());
+    }
+
+    @Test
+    public void checkBankName() {
+        try (MockedStatic<BankService> bankServiceMockedStatic = mockStatic(BankService.class)) {
+            CardModel myCard = new CardModel("15151515");
+            ATMrequest _ATMrequest = new ATMrequest(myCard);
+
+            bankServiceMockedStatic.when(() -> BankService.bankName(anyString())).thenReturn("Swedbank");
+
+            String actual = myATMservice.getBankName(_ATMrequest);
+
+            assertEquals("Swedbank", actual);
+        }
+
+
     }
 
 }
