@@ -35,7 +35,13 @@ public class ATMservice {
             case 3 -> "Wrong password 3 times, card is blocked";
             default -> "something went wrong";
         };
+    }
 
+
+    public String getCardStatus(ATMrequest _ATMrequest) {
+        if (bankService.getCardBlockStatus(_ATMrequest.getCard().getCardID()))
+            return "Card is blocked, you cannot login";
+        return "Card is not blocked, login allowed";
 
     }
 }

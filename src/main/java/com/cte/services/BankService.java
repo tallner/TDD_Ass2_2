@@ -18,4 +18,8 @@ public class BankService {
     }
     public void setNrLoginAttempts(int nrLoginAttempts) {
     }
+
+    public boolean getCardBlockStatus(String s) {
+        return false;
+    }
 }

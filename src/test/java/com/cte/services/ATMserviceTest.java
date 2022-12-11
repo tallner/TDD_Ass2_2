@@ -111,4 +111,30 @@ class ATMserviceTest {
 
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void checkIfCardIsBlockedWhenInserted(){
+        CardModel myCard = new CardModel("15151515");
+
+        ATMrequest _ATMrequest = new ATMrequest(myCard);
+        when(bankService.getCardBlockStatus("15151515")).thenReturn(true);
+
+        String expected = "Card is blocked, you cannot login";
+        String actual = myATMservice.getCardStatus(_ATMrequest);
+
+        assertEquals(expected,actual);
+    }
+    @Test
+
+    public void checkIfCardIsNotBlockedWhenInserted(){
+        CardModel myCard = new CardModel("15151515");
+
+        ATMrequest _ATMrequest = new ATMrequest(myCard);
+        when(bankService.getCardBlockStatus("15151515")).thenReturn(false);
+
+        String expected = "Card is not blocked, login allowed";
+        String actual = myATMservice.getCardStatus(_ATMrequest);
+
+        assertEquals(expected,actual);
+    }
 }

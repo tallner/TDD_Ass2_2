@@ -7,6 +7,10 @@ public class CardModel {
     int nrLoginAttempts;
     boolean blockStatus;
 
+    public CardModel(String _cardID){
+        cardID = _cardID;
+    }
+
     public CardModel(String _PIN, String _cardID, String _userName) {
         PIN = _PIN;
         cardID = _cardID;
