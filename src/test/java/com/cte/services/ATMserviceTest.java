@@ -195,4 +195,18 @@ class ATMserviceTest {
         assertEquals("Not enough money",myATMservice.withdrawFromBalance(_ATMrequest));
     }
 
+    @Test
+    public void quit(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        myCard.setLoginStatus(true);
+
+        boolean expectedLoginStatusAfterMethodIsRun = false;
+
+        ATMrequest _ATMrequest = new ATMrequest(myCard);
+
+        myATMservice.quit(_ATMrequest);
+
+        assertEquals(expectedLoginStatusAfterMethodIsRun,myCard.getLoginStatus());
+    }
+
 }

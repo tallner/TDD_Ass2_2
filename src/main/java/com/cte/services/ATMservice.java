@@ -62,4 +62,8 @@ public class ATMservice {
         }else return "Not enough money";
 
     }
+
+    public void quit(ATMrequest _ATMrequest) {
+        _ATMrequest.getCard().setLoginStatus(false);
+    }
 }
