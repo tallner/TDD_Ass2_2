@@ -44,4 +44,10 @@ public class ATMservice {
         return "Card is not blocked, login allowed";
 
     }
+
+    public int getBalance(ATMrequest _ATMrequest) {
+        if (_ATMrequest.getCard().getLoginStatus())
+            return bankService.getBalance(_ATMrequest.getCard().getCardID());
+        return 0;
+    }
 }

@@ -22,4 +22,8 @@ public class BankService {
     public boolean getCardBlockStatus(String s) {
         return false;
     }
+
+    public int getBalance(String s) {
+        return 0;
+    }
 }

@@ -103,11 +103,8 @@ class ATMserviceTest {
         ATMrequest _ATMrequest = new ATMrequest(myCard,wrongCardPINATMinput);
         when(bankService.getNrLoginAttempts("15151515")).thenReturn(3);
 
-
-
         String expected = "Wrong password 3 times, card is blocked";
         String actual = myATMservice.loginRequest(_ATMrequest);
-        System.out.println(myCard.getBlockStatus());
 
         assertEquals(expected,actual);
     }
@@ -124,8 +121,8 @@ class ATMserviceTest {
 
         assertEquals(expected,actual);
     }
-    @Test
 
+    @Test
     public void checkIfCardIsNotBlockedWhenInserted(){
         CardModel myCard = new CardModel("15151515");
 
@@ -134,6 +131,20 @@ class ATMserviceTest {
 
         String expected = "Card is not blocked, login allowed";
         String actual = myATMservice.getCardStatus(_ATMrequest);
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getBalance(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        myCard.setLoginStatus(true);
+        ATMrequest _ATMrequest = new ATMrequest(myCard);
+
+        int expected = 3000;
+        when(bankService.getBalance("15151515")).thenReturn(expected);
+
+        int actual = myATMservice.getBalance(_ATMrequest);
 
         assertEquals(expected,actual);
     }

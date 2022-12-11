@@ -6,6 +6,7 @@ public class CardModel {
     String userName;
     int nrLoginAttempts;
     boolean blockStatus;
+    boolean loginStatus;
 
     public CardModel(String _cardID){
         cardID = _cardID;
@@ -17,7 +18,17 @@ public class CardModel {
         userName = _userName;
         nrLoginAttempts = 0;
         blockStatus = false;
+        loginStatus = false;
     }
+
+    public boolean getLoginStatus() {
+        return loginStatus;
+    }
+
+    public void setLoginStatus(boolean loginStatus) {
+        this.loginStatus = loginStatus;
+    }
+
 
     public int getNrLoginAttempts() {
         return nrLoginAttempts;
