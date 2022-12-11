@@ -26,4 +26,8 @@ public class BankService {
     public int getBalance(String s) {
         return 0;
     }
+
+    public void addToBalance(Integer addBalance) {
+
+    }
 }

@@ -8,25 +8,27 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.*;
-import org.mockito.configuration.IMockitoConfiguration;
+import org.mockito.ArgumentCaptor;
+
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ATMserviceTest {
 
     private BankService bankService;
     private ATMservice myATMservice;
+    private ArgumentCaptor<Integer> addToBalanceArgumentCaptor;
 
     @BeforeEach
     public void setUp() {
         bankService = mock(BankService.class);
         myATMservice = new ATMservice(bankService);
+
+        addToBalanceArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
     }
 
     private static List<Arguments> testUsers(){
@@ -136,10 +138,10 @@ class ATMserviceTest {
     }
 
     @Test
-    public void getBalance(){
+    public void checkIfYouGetBalanceWhenCardIsLoggedIn(){
         CardModel myCard = new CardModel("1515","15151515","Tallner");
         myCard.setLoginStatus(true);
-        ATMrequest _ATMrequest = new ATMrequest(myCard);
+        ATMrequest _ATMrequest = new ATMrequest(myCard,"1515");
 
         int expected = 3000;
         when(bankService.getBalance("15151515")).thenReturn(expected);
@@ -148,4 +150,19 @@ class ATMserviceTest {
 
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void addMoneyToAccountAndVerifyMethodIsRun(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        int amountToAddToBalance = 500;
+        ATMrequest _ATMrequest = new ATMrequest(myCard,"1515",amountToAddToBalance);
+
+        myATMservice.addToBalance(_ATMrequest);
+
+        verify(bankService,times(1)).addToBalance(addToBalanceArgumentCaptor.capture());
+
+        assertEquals(amountToAddToBalance,addToBalanceArgumentCaptor.getValue());
+    }
+
+
 }

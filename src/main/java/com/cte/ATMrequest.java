@@ -6,13 +6,29 @@ public class ATMrequest {
     private CardModel card;
     private String ATMpinInput;
     private String withDrawalAmount;
+    private int addToBalanceAmount;
 
     public ATMrequest(CardModel _card){
         card = _card;
     }
+
     public ATMrequest(CardModel _card, String _ATMpinInput){
         card = _card;
         ATMpinInput = _ATMpinInput;
+    }
+
+    public ATMrequest(CardModel _card, String _ATMpinInput, int _addToBalanceAmount){
+        card = _card;
+        ATMpinInput = _ATMpinInput;
+        addToBalanceAmount = _addToBalanceAmount;
+    }
+
+    public void setAddToBalanceAmount(int _addToBalanceAmount) {
+        addToBalanceAmount = _addToBalanceAmount;
+    }
+
+    public int getAddToBalanceAmount() {
+        return addToBalanceAmount;
     }
 
     public String getATMpinInput() {

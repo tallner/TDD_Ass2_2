@@ -50,4 +50,8 @@ public class ATMservice {
             return bankService.getBalance(_ATMrequest.getCard().getCardID());
         return 0;
     }
+
+    public void addToBalance(ATMrequest _ATMrequest) {
+        bankService.addToBalance(_ATMrequest.getAddToBalanceAmount());
+    }
 }
