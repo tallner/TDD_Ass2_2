@@ -4,11 +4,31 @@ public class CardModel {
     String PIN;
     String cardID;
     String userName;
+    int nrLoginAttempts;
+    boolean blockStatus;
 
-    public CardModel(String PIN, String cardID, String userName) {
-        this.PIN = PIN;
-        this.cardID = cardID;
-        this.userName = userName;
+    public CardModel(String _PIN, String _cardID, String _userName) {
+        PIN = _PIN;
+        cardID = _cardID;
+        userName = _userName;
+        nrLoginAttempts = 0;
+        blockStatus = false;
+    }
+
+    public int getNrLoginAttempts() {
+        return nrLoginAttempts;
+    }
+
+    public void setNrLoginAttempts(int nrLoginAttempts) {
+        this.nrLoginAttempts = nrLoginAttempts;
+    }
+
+    public boolean getBlockStatus() {
+        return blockStatus;
+    }
+
+    public void setBlockStatus(boolean blockStatus) {
+        this.blockStatus = blockStatus;
     }
 
     public String getCardID() {

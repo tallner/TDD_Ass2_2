@@ -12,4 +12,10 @@ public class BankService {
     public String loginRequest(String cardNumber, String userName, String PIN) {
         return null;
     }
+
+    public int getNrLoginAttempts(String cardID) {
+        return 0;
+    }
+    public void setNrLoginAttempts(int nrLoginAttempts) {
+    }
 }

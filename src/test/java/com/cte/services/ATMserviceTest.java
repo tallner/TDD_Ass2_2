@@ -54,10 +54,61 @@ class ATMserviceTest {
     @ParameterizedTest
     @MethodSource("testUsers")
     public void loginUser(String cardNumber, String userName, String PIN){
-        String cardNumberATMinput = PIN;
+        String cardPINATMinput = PIN;
         CardModel myCard = new CardModel(PIN,cardNumber,userName);
-        ATMrequest _ATMrequest = new ATMrequest(myCard,cardNumberATMinput);
+        ATMrequest _ATMrequest = new ATMrequest(myCard,cardPINATMinput);
 
-        assertTrue(myATMservice.loginRequest(_ATMrequest));
+        assertTrue(myATMservice.loginRequest(_ATMrequest).equals("Login OK"));
+    }
+
+    @Test
+    public void loginWithWrongPasswordShouldReturnFalse(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        String wrongCardPINATMinput = "1010";
+        ATMrequest _ATMrequest = new ATMrequest(myCard,wrongCardPINATMinput);
+
+        assertFalse(myATMservice.loginRequest(_ATMrequest).equals("Login OK"));
+    }
+
+    @Test
+    public void loginOnceWithWrongPasswordShouldIncreaseFaultCounter(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        String wrongCardPINATMinput = "1010";
+        ATMrequest _ATMrequest = new ATMrequest(myCard,wrongCardPINATMinput);
+        when(bankService.getNrLoginAttempts("15151515")).thenReturn(1);
+
+        String expected = "Wrong password, you have 2 more tries";
+        String actual = myATMservice.loginRequest(_ATMrequest);
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void loginTwiceWithWrongPasswordShouldIncreaseFaultCounter(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        String wrongCardPINATMinput = "1010";
+        ATMrequest _ATMrequest = new ATMrequest(myCard,wrongCardPINATMinput);
+        when(bankService.getNrLoginAttempts("15151515")).thenReturn(2);
+
+        String expected = "Wrong password, you have 1 more try";
+        String actual = myATMservice.loginRequest(_ATMrequest);
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void loginThriceWithWrongPasswordShouldIncreaseFaultCounter(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        String wrongCardPINATMinput = "1010";
+        ATMrequest _ATMrequest = new ATMrequest(myCard,wrongCardPINATMinput);
+        when(bankService.getNrLoginAttempts("15151515")).thenReturn(3);
+
+
+
+        String expected = "Wrong password 3 times, card is blocked";
+        String actual = myATMservice.loginRequest(_ATMrequest);
+        System.out.println(myCard.getBlockStatus());
+
+        assertEquals(expected,actual);
     }
 }
