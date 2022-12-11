@@ -181,4 +181,18 @@ class ATMserviceTest {
         assertEquals(amountToWithdrawFromBalance,withdrawBalanceArgumentCaptor.getValue());
     }
 
+    @Test
+    public void withdrawTooMuchMoneyFromAccountAndGetCorrectFeedback(){
+        CardModel myCard = new CardModel("1515","15151515","Tallner");
+        myCard.setLoginStatus(true);
+
+        int amountToWithdrawFromBalance = 5000;
+        ATMrequest _ATMrequest = new ATMrequest(myCard,"1515",0,amountToWithdrawFromBalance);
+
+        when(bankService.getBalance("15151515")).thenReturn(3000);
+
+
+        assertEquals("Not enough money",myATMservice.withdrawFromBalance(_ATMrequest));
+    }
+
 }

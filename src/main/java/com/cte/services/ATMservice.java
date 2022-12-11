@@ -58,7 +58,7 @@ public class ATMservice {
     public String withdrawFromBalance(ATMrequest _ATMrequest) {
         if (getBalance(_ATMrequest) >= _ATMrequest.getWithDrawalAmount()){
             bankService.withdrawFromBalance(_ATMrequest.getWithDrawalAmount());
-            return _ATMrequest.getWithDrawalAmount()+"is withdrawn from your account";
+            return _ATMrequest.getWithDrawalAmount()+" is withdrawn from your account";
         }else return "Not enough money";
 
     }
